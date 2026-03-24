@@ -32,7 +32,22 @@ def api_component(request, component):
         'message': 'API endpoint active',
     })
 
+
+def root_status(request):
+    host = CODESPACE_BASE if CODESPACE_BASE else request.get_host()
+    return JsonResponse({
+        'status': 'ok',
+        'message': 'Octofit API is running',
+        'available_endpoints': [
+            f'{host}/admin/',
+            f'{host}/api/activities/',
+            f'{host}/api/users/',
+            f'{host}/api/teams/',
+        ],
+    })
+
 urlpatterns = [
+    path('', root_status),
     path('admin/', admin.site.urls),
     path('api/<str:component>/', api_component),
 ]
