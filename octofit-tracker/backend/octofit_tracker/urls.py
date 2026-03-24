@@ -13,9 +13,26 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import os
+
 from django.contrib import admin
+from django.http import JsonResponse
 from django.urls import path
+
+CODESPACE_NAME = os.getenv('CODESPACE_NAME', '')
+CODESPACE_HOST = f"{CODESPACE_NAME}-8000.app.github.dev" if CODESPACE_NAME else None
+CODESPACE_BASE = f"https://{CODESPACE_HOST}" if CODESPACE_HOST else None
+
+
+def api_component(request, component):
+    url_prefix = CODESPACE_BASE if CODESPACE_BASE else request.build_absolute_uri('/')[:-1]
+    return JsonResponse({
+        'component': component,
+        'api_url': f"{url_prefix}/api/{component}/",
+        'message': 'API endpoint active',
+    })
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/<str:component>/', api_component),
 ]
