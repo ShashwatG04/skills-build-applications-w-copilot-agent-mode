@@ -1,0 +1,136 @@
+/* Octofit Tracker Custom Styles */
+
+body {
+  background-color: #f8f9fa; /* Light gray background */
+  color: #212529; /* Dark text */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.App {
+  min-height: 100vh;
+}
+
+/* Navigation Menu */
+.navbar {
+  background-color: #007bff !important; /* Bootstrap primary blue */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+  font-weight: bold;
+  color: #ffffff !important;
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #e9ecef !important;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: #495057; /* Dark gray */
+  font-weight: 600;
+}
+
+h2 {
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Tables */
+.table {
+  background-color: #ffffff;
+  border-radius: 0.375rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.table thead th {
+  background-color: #007bff !important;
+  color: #ffffff !important;
+  border: none;
+  font-weight: 600;
+}
+
+.table tbody tr:hover {
+  background-color: #e3f2fd; /* Light blue hover */
+}
+
+.table td, .table th {
+  border-color: #dee2e6;
+  vertical-align: middle;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* Links */
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Alerts */
+.alert {
+  border-radius: 0.375rem;
+  border: none;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Spinners */
+.spinner-border {
+  color: #007bff;
+}
+
+/* Welcome Page */
+.display-4 {
+  color: #495057;
+  font-weight: 300;
+}
+
+.lead {
+  color: #6c757d;
+}
+
+/* Logo in Navbar */
+.navbar-logo {
+  height: 40px;
+  margin-right: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .table-responsive {
+    font-size: 0.9rem;
+  }
+}
