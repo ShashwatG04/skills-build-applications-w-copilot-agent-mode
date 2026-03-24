@@ -16,38 +16,58 @@ Including another URLconf
 import os
 
 from django.contrib import admin
-from django.http import JsonResponse
 from django.urls import path
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.http import JsonResponse
 
 CODESPACE_NAME = os.getenv('CODESPACE_NAME', '')
 CODESPACE_HOST = f"{CODESPACE_NAME}-8000.app.github.dev" if CODESPACE_NAME else None
 CODESPACE_BASE = f"https://{CODESPACE_HOST}" if CODESPACE_HOST else None
 
 
-def api_component(request, component):
-    url_prefix = CODESPACE_BASE if CODESPACE_BASE else request.build_absolute_uri('/')[:-1]
-    return JsonResponse({
+def get_url_base(request):
+    if CODESPACE_BASE:
+        return CODESPACE_BASE
+    # use request host for local runs
+    proto = 'https' if request.is_secure() else 'http'
+    return f"{proto}://{request.get_host()}"
+
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    base = get_url_base(request)
+    return Response({
+        'users': f"{base}/api/users/",
+        'teams': f"{base}/api/teams/",
+        'activities': f"{base}/api/activities/",
+        'workouts': f"{base}/api/workouts/",
+        'leaderboard': f"{base}/api/leaderboard/",
+    })
+
+
+@api_view(['GET'])
+def api_component(request, component, format=None):
+    base = get_url_base(request)
+    return Response({
         'component': component,
-        'api_url': f"{url_prefix}/api/{component}/",
+        'api_url': f"{base}/api/{component}/",
         'message': 'API endpoint active',
     })
 
 
 def root_status(request):
-    host = CODESPACE_BASE if CODESPACE_BASE else request.get_host()
+    base = get_url_base(request)
     return JsonResponse({
         'status': 'ok',
         'message': 'Octofit API is running',
-        'available_endpoints': [
-            f'{host}/admin/',
-            f'{host}/api/activities/',
-            f'{host}/api/users/',
-            f'{host}/api/teams/',
-        ],
+        'api_root': f"{base}/api/",
     })
+
 
 urlpatterns = [
     path('', root_status),
     path('admin/', admin.site.urls),
+    path('api/', api_root),
     path('api/<str:component>/', api_component),
 ]
