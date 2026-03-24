@@ -25,19 +25,30 @@ const Users = () => {
       });
   }, []);
 
-  if (loading) return <div>Loading users...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (loading) return <div className="text-center mt-5"><div className="spinner-border" role="status"><span className="visually-hidden">Loading...</span></div></div>;
+  if (error) return <div className="alert alert-danger" role="alert">Error: {error.message}</div>;
 
   return (
     <div>
-      <h2>Users</h2>
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>
-            {user.username} - {user.email}
-          </li>
-        ))}
-      </ul>
+      <h2 className="mb-4">Users</h2>
+      <div className="table-responsive">
+        <table className="table table-striped table-hover">
+          <thead className="table-dark">
+            <tr>
+              <th scope="col">Username</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map(user => (
+              <tr key={user.id}>
+                <td>{user.username}</td>
+                <td>{user.email}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

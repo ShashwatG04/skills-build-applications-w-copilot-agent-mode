@@ -25,19 +25,28 @@ const Teams = () => {
       });
   }, []);
 
-  if (loading) return <div>Loading teams...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (loading) return <div className="text-center mt-5"><div className="spinner-border" role="status"><span className="visually-hidden">Loading...</span></div></div>;
+  if (error) return <div className="alert alert-danger" role="alert">Error: {error.message}</div>;
 
   return (
     <div>
-      <h2>Teams</h2>
-      <ul>
-        {teams.map(team => (
-          <li key={team.id}>
-            {team.name}
-          </li>
-        ))}
-      </ul>
+      <h2 className="mb-4">Teams</h2>
+      <div className="table-responsive">
+        <table className="table table-striped table-hover">
+          <thead className="table-dark">
+            <tr>
+              <th scope="col">Team Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {teams.map(team => (
+              <tr key={team.id}>
+                <td>{team.name}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

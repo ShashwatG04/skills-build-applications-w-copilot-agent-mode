@@ -25,19 +25,32 @@ const Workouts = () => {
       });
   }, []);
 
-  if (loading) return <div>Loading workouts...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (loading) return <div className="text-center mt-5"><div className="spinner-border" role="status"><span className="visually-hidden">Loading...</span></div></div>;
+  if (error) return <div className="alert alert-danger" role="alert">Error: {error.message}</div>;
 
   return (
     <div>
-      <h2>Workouts</h2>
-      <ul>
-        {workouts.map(workout => (
-          <li key={workout.id}>
-            {workout.name} - {workout.description} - {workout.duration} min
-          </li>
-        ))}
-      </ul>
+      <h2 className="mb-4">Workouts</h2>
+      <div className="table-responsive">
+        <table className="table table-striped table-hover">
+          <thead className="table-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Duration (min)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {workouts.map(workout => (
+              <tr key={workout.id}>
+                <td>{workout.name}</td>
+                <td>{workout.description}</td>
+                <td>{workout.duration}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

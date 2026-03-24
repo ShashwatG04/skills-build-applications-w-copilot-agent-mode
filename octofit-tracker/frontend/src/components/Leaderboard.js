@@ -25,19 +25,30 @@ const Leaderboard = () => {
       });
   }, []);
 
-  if (loading) return <div>Loading leaderboard...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (loading) return <div className="text-center mt-5"><div className="spinner-border" role="status"><span className="visually-hidden">Loading...</span></div></div>;
+  if (error) return <div className="alert alert-danger" role="alert">Error: {error.message}</div>;
 
   return (
     <div>
-      <h2>Leaderboard</h2>
-      <ul>
-        {leaderboard.map(entry => (
-          <li key={entry.id}>
-            {entry.user} - Score: {entry.score}
-          </li>
-        ))}
-      </ul>
+      <h2 className="mb-4">Leaderboard</h2>
+      <div className="table-responsive">
+        <table className="table table-striped table-hover">
+          <thead className="table-dark">
+            <tr>
+              <th scope="col">User</th>
+              <th scope="col">Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {leaderboard.map(entry => (
+              <tr key={entry.id}>
+                <td>{entry.user}</td>
+                <td>{entry.score}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -25,19 +25,34 @@ const Activities = () => {
       });
   }, []);
 
-  if (loading) return <div>Loading activities...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (loading) return <div className="text-center mt-5"><div className="spinner-border" role="status"><span className="visually-hidden">Loading...</span></div></div>;
+  if (error) return <div className="alert alert-danger" role="alert">Error: {error.message}</div>;
 
   return (
     <div>
-      <h2>Activities</h2>
-      <ul>
-        {activities.map(activity => (
-          <li key={activity.id}>
-            {activity.user} - {activity.type} - {activity.duration} min - {activity.calories} cal
-          </li>
-        ))}
-      </ul>
+      <h2 className="mb-4">Activities</h2>
+      <div className="table-responsive">
+        <table className="table table-striped table-hover">
+          <thead className="table-dark">
+            <tr>
+              <th scope="col">User</th>
+              <th scope="col">Type</th>
+              <th scope="col">Duration (min)</th>
+              <th scope="col">Calories</th>
+            </tr>
+          </thead>
+          <tbody>
+            {activities.map(activity => (
+              <tr key={activity.id}>
+                <td>{activity.user}</td>
+                <td>{activity.type}</td>
+                <td>{activity.duration}</td>
+                <td>{activity.calories}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
